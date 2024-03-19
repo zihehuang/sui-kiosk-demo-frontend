@@ -24,4 +24,6 @@ export const CONSTANTS = {
     demoBearType: `${demoContract.packageId}::demo_bear::DemoBear`,
   },
   apiEndpoint: "http://localhost:3000/",
+  kioskId: "0x04cd6eb31412be249cfd1a246c423307652873687383a026c541caa2014869f1",
+  packageId: "0x934f0f8e74298107d6faeb767ab7b8261c5bf3c44896f057a428389c8bbb03d8"
 };
