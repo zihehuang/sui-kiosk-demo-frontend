@@ -21,7 +21,7 @@ export function ExplorerLink({
   const [copied, setCopied] = useState(false);
   const { network } = useSuiClientContext();
 
-  const link = `https://suiexplorer.com/${
+  const link = `https://${network}.suivision.xyz/${
     isAddress ? "address" : "object"
   }/${id}?network=${network}`;
 

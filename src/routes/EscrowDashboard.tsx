@@ -13,7 +13,7 @@ export function EscrowDashboard() {
   const account = useCurrentAccount();
   const tabs = [
     {
-      name: "Requested Escrows",
+      name: "Buy now",
       component: () => (
         <KioskList />
       ),
