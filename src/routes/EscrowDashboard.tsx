@@ -8,42 +8,45 @@ import { EscrowList } from "../components/escrows/EscrowList";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { useCurrentAccount } from "@mysten/dapp-kit";
 import { KioskList } from "@/components/kiosk/KioskList";
+import { CONSTANTS } from "@/constants";
+
+const primaryKioskId = CONSTANTS.primaryKioskId;
+const secondaryKioskId = CONSTANTS.secondaryKioskId;
 
 export function EscrowDashboard() {
   const account = useCurrentAccount();
   const tabs = [
     {
-      name: "Buy now",
+      name: "Buy from Minter Kiosk",
       component: () => (
-        <KioskList />
+        <KioskList 
+	  kioskId={primaryKioskId}
+	/>
       ),
-      tooltip: "Escrows requested for your locked objects.",
+      tooltip: "Kiosk items from the Minter Kiosk.",
     },
     {
-      name: "Browse Locked Objects",
+      name: "Buy from Collector Kiosk",
       component: () => (
-        <LockedList
-          params={{
-            deleted: "false",
-          }}
-          enableSearch
+        <KioskList
+	  kioskId={secondaryKioskId}
         />
       ),
-      tooltip: "Browse locked objects you can trade for.",
+      tooltip: "Browse items from the Collector Kiosk.",
     },
-    {
-      name: "My Pending Requests",
-      component: () => (
-        <EscrowList
-          params={{
-            sender: account?.address,
-            swapped: "false",
-            cancelled: "false",
-          }}
-        />
-      ),
-      tooltip: "Escrows you have initiated for third party locked objects.",
-    },
+    // {
+    //   name: "My Pending Requests",
+    //   component: () => (
+    //     <EscrowList
+    //       params={{
+    //         sender: account?.address,
+    //         swapped: "false",
+    //         cancelled: "false",
+    //       }}
+    //     />
+    //   ),
+    //   tooltip: "Escrows you have initiated for third party locked objects.",
+    // },
   ];
 
   const [tab, setTab] = useState(tabs[0].name);

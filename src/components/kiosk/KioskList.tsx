@@ -14,16 +14,18 @@ import { SuiClient } from '@mysten/sui.js/client';
 import { usePurchaseItemMutation } from "@/mutations/kiosk";
 import { CONSTANTS } from "@/constants";
 
-const kioskId = CONSTANTS.kioskId;
-
 /**
  * Similar to the `ApiLockedList` but fetches the owned locked objects
  * but fetches the objects from the on-chain state, instead of relying on the indexer API.
  */
-export function KioskList() {
+export function KioskList({
+  kioskId,
+}: {
+  kioskId: string;
+}) {
   const { mutate: purchaseMutation, isPending } = usePurchaseItemMutation();
   const account = useCurrentAccount();
-  const client = new SuiClient({url: "https://fullnode.testnet.sui.io:443"});
+  const client = new SuiClient({url: CONSTANTS.testnetUrl});
 
   const kioskClient = new KioskClient({
     client,
@@ -78,6 +80,7 @@ export function KioskList() {
 		onClick={() => {
 		  purchaseMutation({
 		    buyer: account?.address!,
+		    kioskId: kioskId,
 		    id: kioskItem.objectId,
 		  });
 		}}

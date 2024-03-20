@@ -4,17 +4,18 @@
 import { useState } from "react";
 import { Tabs } from "@radix-ui/themes";
 import { LockOwnedObjects } from "../components/locked/LockOwnedObjects";
+import { MyKioskItems } from "@/components/kiosk/MyKioskItems";
 import { OwnedLockedList } from "@/components/locked/OwnedLockedList";
 
 export function LockedDashboard() {
   const tabs = [
+    // {
+    //   name: "My Locked Objects",
+    //   component: () => <OwnedLockedList />,
+    // },
     {
-      name: "My Locked Objects",
-      component: () => <OwnedLockedList />,
-    },
-    {
-      name: "Lock Owned objects",
-      component: () => <LockOwnedObjects />,
+      name: "My objects",
+      component: () => <MyKioskItems />,
     },
   ];
 
