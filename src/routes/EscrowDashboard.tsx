@@ -3,10 +3,7 @@
 
 import { useState } from "react";
 import { Tabs, Tooltip } from "@radix-ui/themes";
-import { LockedList } from "../components/locked/ApiLockedList";
-import { EscrowList } from "../components/escrows/EscrowList";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
-import { useCurrentAccount } from "@mysten/dapp-kit";
 import { KioskList } from "@/components/kiosk/KioskList";
 import { CONSTANTS } from "@/constants";
 
@@ -14,24 +11,15 @@ const primaryKioskId = CONSTANTS.primaryKioskId;
 const secondaryKioskId = CONSTANTS.secondaryKioskId;
 
 export function EscrowDashboard() {
-  const account = useCurrentAccount();
   const tabs = [
     {
       name: "Buy from Minter Kiosk",
-      component: () => (
-        <KioskList 
-	  kioskId={primaryKioskId}
-	/>
-      ),
+      component: () => <KioskList kioskId={primaryKioskId} />,
       tooltip: "Kiosk items from the Minter Kiosk.",
     },
     {
       name: "Buy from Collector Kiosk",
-      component: () => (
-        <KioskList
-	  kioskId={secondaryKioskId}
-        />
-      ),
+      component: () => <KioskList kioskId={secondaryKioskId} />,
       tooltip: "Browse items from the Collector Kiosk.",
     },
     // {

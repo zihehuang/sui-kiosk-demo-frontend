@@ -6,11 +6,10 @@ import { KioskContent } from "./KioskContent";
 import { QueryKey } from "@/constants";
 import { InfiniteScrollArea } from "@/components/InfiniteScrollArea";
 import { ExplorerLink } from "../ExplorerLink";
-import { useState } from "react";
 import { Button } from "@radix-ui/themes";
 import { KioskClient, Network, KioskItem } from "@mysten/kiosk";
 // import { KioskObject } from "./LockedObject";
-import { SuiClient } from '@mysten/sui.js/client';
+import { SuiClient } from "@mysten/sui.js/client";
 import { usePurchaseItemMutation } from "@/mutations/kiosk";
 import { CONSTANTS } from "@/constants";
 
@@ -18,14 +17,10 @@ import { CONSTANTS } from "@/constants";
  * Similar to the `ApiLockedList` but fetches the owned locked objects
  * but fetches the objects from the on-chain state, instead of relying on the indexer API.
  */
-export function KioskList({
-  kioskId,
-}: {
-  kioskId: string;
-}) {
-  const { mutate: purchaseMutation, isPending } = usePurchaseItemMutation();
+export function KioskList({ kioskId }: { kioskId: string }) {
+  const { mutate: purchaseMutation, } = usePurchaseItemMutation();
   const account = useCurrentAccount();
-  const client = new SuiClient({url: CONSTANTS.testnetUrl});
+  const client = new SuiClient({ url: CONSTANTS.testnetUrl });
 
   const kioskClient = new KioskClient({
     client,
@@ -34,16 +29,16 @@ export function KioskList({
 
   const { data, isLoading } = useQuery({
     queryKey: [QueryKey.Kiosk, kioskId],
-      queryFn: async () => {
-        const res = await kioskClient.getKiosk({
-          id: kioskId,
-          options: {
-              withKioskFields: true, // this flag also returns the `kiosk` object in the response, which includes the base setup
-              withListingPrices: true, // This flag enables / disables the fetching of the listing prices.
-          }
-        });
-        return res;
-      },
+    queryFn: async () => {
+      const res = await kioskClient.getKiosk({
+        id: kioskId,
+        options: {
+          withKioskFields: true, // this flag also returns the `kiosk` object in the response, which includes the base setup
+          withListingPrices: true, // This flag enables / disables the fetching of the listing prices.
+        },
+      });
+      return res;
+    },
     select: (data) => data.items,
   });
 
@@ -74,22 +69,22 @@ export function KioskList({
                   <ExplorerLink id={kioskItem.objectId} isAddress={false} />
                 </p>
               }
-	      <Button
-	        className="ml-auto cursor-pointer"
-		disabled={false}
-		onClick={() => {
-		  purchaseMutation({
-		    buyer: account?.address!,
-		    kioskId: kioskId,
-		    id: kioskItem.objectId,
-		  });
-		}}
-	      >
-	        Buy now
-	      </Button>
+              <Button
+                className="ml-auto cursor-pointer"
+                disabled={false}
+                onClick={() => {
+                  purchaseMutation({
+                    buyer: account?.address!,
+                    kioskId: kioskId,
+                    id: kioskItem.objectId,
+                  });
+                }}
+              >
+                Buy now
+              </Button>
               <div className="min-w-[340px] w-full justify-self-start text-left">
                 {kioskItem?.data && (
-                  <KioskContent kioskContent={{...kioskItem}} />
+                  <KioskContent kioskContent={{ ...kioskItem }} />
                 )}
               </div>
             </div>

@@ -1,17 +1,10 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCurrentAccount, useSuiClientQuery } from "@mysten/dapp-kit";
+import { useSuiClientQuery } from "@mysten/dapp-kit";
 import { SuiObjectDisplay } from "@/components/SuiObjectDisplay";
-import { Button } from "@radix-ui/themes";
 import { KioskItem } from "@mysten/kiosk";
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  LockOpen1Icon,
-} from "@radix-ui/react-icons";
 import { ExplorerLink } from "../ExplorerLink";
-import { useState } from "react";
 
 /**
  *
@@ -19,14 +12,7 @@ import { useState } from "react";
  * to also validate ownership from on-chain state (as objects are transferrable)
  * and the API cannot track all the ownership changes.
  */
-export function KioskContent({
-  kioskContent,
-}: {
-  kioskContent: KioskItem;
-}) {
-  const [isToggled, setIsToggled] = useState(false);
-  const account = useCurrentAccount();
-  // const { mutate: unlockMutation, isPending } = useUnlockMutation();
+export function KioskContent({ kioskContent }: { kioskContent: KioskItem }) {
 
   const suiObject = useSuiClientQuery(
     "getObject",

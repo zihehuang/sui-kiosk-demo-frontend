@@ -3,9 +3,7 @@
 
 import { useState } from "react";
 import { Tabs } from "@radix-ui/themes";
-import { LockOwnedObjects } from "../components/locked/LockOwnedObjects";
 import { MyKioskItems } from "@/components/kiosk/MyKioskItems";
-import { OwnedLockedList } from "@/components/locked/OwnedLockedList";
 
 export function LockedDashboard() {
   const tabs = [

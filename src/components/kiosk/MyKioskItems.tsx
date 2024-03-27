@@ -1,15 +1,13 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCurrentAccount, useSuiClientInfiniteQuery } from "@mysten/dapp-kit";
+import { useCurrentAccount, } from "@mysten/dapp-kit";
 import { SuiObjectDisplay } from "@/components/SuiObjectDisplay";
 import { Button } from "@radix-ui/themes";
-import { LockClosedIcon } from "@radix-ui/react-icons";
 import { InfiniteScrollArea } from "@/components/InfiniteScrollArea";
-import { useLockObjectMutation } from "@/mutations/locked";
 import { CONSTANTS, QueryKey } from "@/constants";
 import { ExplorerLink } from "../ExplorerLink";
-import { SuiClient } from '@mysten/sui.js/client';
+import { SuiClient } from "@mysten/sui.js/client";
 import { KioskClient, Network, KioskItem } from "@mysten/kiosk";
 import { KioskContent } from "./KioskContent";
 import { useQuery } from "@tanstack/react-query";
@@ -21,9 +19,9 @@ import { useListItemMutation } from "@/mutations/kiosk";
  */
 export function MyKioskItems() {
   const account = useCurrentAccount();
-  const client = new SuiClient({url: CONSTANTS.testnetUrl});
+  const client = new SuiClient({ url: CONSTANTS.testnetUrl });
 
-  const { mutate: listItemMutation, isPending } = useListItemMutation();
+  const { mutate: listItemMutation, } = useListItemMutation();
   const kioskClient = new KioskClient({
     client,
     network: Network.TESTNET,
@@ -31,23 +29,23 @@ export function MyKioskItems() {
 
   const { data, isLoading } = useQuery({
     queryKey: [QueryKey.Kiosk, account?.address!],
-      queryFn: async () => {
-        const { kioskOwnerCaps: userKioskCaps } =
-          await kioskClient.getOwnedKiosks({ address: account?.address!});
-	console.log("User kiosk caps: ", userKioskCaps);
-	if (!userKioskCaps.length) return undefined;
+    queryFn: async () => {
+      const { kioskOwnerCaps: userKioskCaps } =
+        await kioskClient.getOwnedKiosks({ address: account?.address! });
+      console.log("User kiosk caps: ", userKioskCaps);
+      if (!userKioskCaps.length) return undefined;
 
-	const kioskId = userKioskCaps[0].kioskId;
+      const kioskId = userKioskCaps[0].kioskId;
 
-        const res = await kioskClient.getKiosk({
-          id: kioskId,
-          options: {
-              withKioskFields: true, // this flag also returns the `kiosk` object in the response, which includes the base setup
-              withListingPrices: true, // This flag enables / disables the fetching of the listing prices.
-          }
-        });
-        return res;
-      },
+      const res = await kioskClient.getKiosk({
+        id: kioskId,
+        options: {
+          withKioskFields: true, // this flag also returns the `kiosk` object in the response, which includes the base setup
+          withListingPrices: true, // This flag enables / disables the fetching of the listing prices.
+        },
+      });
+      return res;
+    },
     select: (data) => data?.items,
   });
 
@@ -79,19 +77,19 @@ export function MyKioskItems() {
             }
             <Button
               className="ml-auto cursor-pointer"
-      	      disabled={false}
-      	      onClick={() => {
-	        listItemMutation({
-		  accountAddress: account?.address!,
-		  itemId: kioskItem.objectId,
-		});
-      	      }}
+              disabled={false}
+              onClick={() => {
+                listItemMutation({
+                  accountAddress: account?.address!,
+                  itemId: kioskItem.objectId,
+                });
+              }}
             >
               List for Sale
             </Button>
             <div className="min-w-[340px] w-full justify-self-start text-left">
               {kioskItem?.data && (
-                <KioskContent kioskContent={{...kioskItem}} />
+                <KioskContent kioskContent={{ ...kioskItem }} />
               )}
             </div>
           </div>
