@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useCurrentAccount } from "@mysten/dapp-kit";
 import { SuiObjectDisplay } from "@/components/SuiObjectDisplay";
-import { KioskContent } from "./KioskContent";
 import { QueryKey } from "@/constants";
 import { InfiniteScrollArea } from "@/components/InfiniteScrollArea";
 import { ExplorerLink } from "../ExplorerLink";
@@ -69,7 +68,7 @@ export function KioskList({ kioskId }: { kioskId: string }) {
                   <ExplorerLink id={kioskItem.objectId} isAddress={false} />
                 </p>
               }
-              <Button
+              {kioskItem.listing && (<Button
                 className="ml-auto cursor-pointer"
                 disabled={false}
                 onClick={() => {
@@ -82,11 +81,12 @@ export function KioskList({ kioskId }: { kioskId: string }) {
               >
                 Buy now
               </Button>
-              <div className="min-w-[340px] w-full justify-self-start text-left">
-                {kioskItem?.data && (
-                  <KioskContent kioskContent={{ ...kioskItem }} />
-                )}
-              </div>
+	      )}
+	      {kioskItem.listing == undefined && (
+	        <label className="ml-auto text-sm text-red-700">
+	          Not Listed
+	        </label>
+	      )}
             </div>
           </SuiObjectDisplay>
         ))}
