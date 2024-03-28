@@ -1,12 +1,11 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { useGenerateDemoData } from "@/mutations/demo";
 import {
   ConnectButton,
 } from "@mysten/dapp-kit";
 import { SizeIcon } from "@radix-ui/react-icons";
-import { Box, Button, Container, Flex, Heading } from "@radix-ui/themes";
+import { Box, Container, Flex, Heading } from "@radix-ui/themes";
 import { NavLink } from "react-router-dom";
 
 const menu = [
@@ -21,7 +20,6 @@ const menu = [
 ];
 
 export function Header() {
-  const { mutate: demoBearMutation, isPending } = useGenerateDemoData();
 
   return (
     <Container>
@@ -57,17 +55,6 @@ export function Header() {
               {item.title}
             </NavLink>
           ))}
-        </Box>
-        <Box>
-          <Button
-            className="cursor-pointer"
-            disabled={isPending}
-            onClick={() => {
-              demoBearMutation();
-            }}
-          >
-            New Demo Bear
-          </Button>
         </Box>
 
         <Box className="connect-wallet-wrapper">
