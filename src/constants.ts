@@ -10,6 +10,7 @@ export enum QueryKey {
   Escrow = "escrow",
   GetOwnedObjects = "getOwnedObjects",
   Kiosk = "kiosk",
+  GetDynamicField = "getDynamicField",
 }
 
 export const CONSTANTS = {

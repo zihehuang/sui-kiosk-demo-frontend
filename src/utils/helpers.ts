@@ -24,3 +24,13 @@ export const getNextPageParam = (lastPage: any) => {
   }
   return lastPage.cursor;
 };
+
+export function shortenHash(longStr: string | null | undefined): string {
+  if (!longStr) return ''
+  return longStr.length >= 10 ? longStr.slice(0, 6) + '...' + longStr.slice(-4) : longStr
+}
+
+export function shorten(longStr: string | null | undefined): string {
+  if (!longStr) return ''
+  return longStr.replace(/0x([A-E0-9]|)\w+/g, shortenHash)
+}

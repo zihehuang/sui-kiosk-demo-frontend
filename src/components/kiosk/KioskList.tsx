@@ -1,16 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { useCurrentAccount } from "@mysten/dapp-kit";
-import { SuiObjectDisplay } from "@/components/SuiObjectDisplay";
 import { QueryKey } from "@/constants";
 import { InfiniteScrollArea } from "@/components/InfiniteScrollArea";
 import { ExplorerLink } from "../ExplorerLink";
 import { Button } from "@radix-ui/themes";
 import { KioskClient, Network, KioskItem } from "@mysten/kiosk";
-// import { KioskObject } from "./LockedObject";
 import { SuiClient } from "@mysten/sui.js/client";
 import { usePurchaseItemMutation } from "@/mutations/kiosk";
 import { CONSTANTS } from "@/constants";
+import { KioskObjectDisplay } from "./KioskContent";
 
 /**
  * Similar to the `ApiLockedList` but fetches the owned locked objects
@@ -34,8 +33,13 @@ export function KioskList({ kioskId }: { kioskId: string }) {
         options: {
           withKioskFields: true, // this flag also returns the `kiosk` object in the response, which includes the base setup
           withListingPrices: true, // This flag enables / disables the fetching of the listing prices.
+	  withObjects: true,
+	  objectOptions: {
+	    showContent: true,
+	  }
         },
       });
+
       return res;
     },
     select: (data) => data.items,
@@ -57,8 +61,8 @@ export function KioskList({ kioskId }: { kioskId: string }) {
         loading={isLoading}
       >
         {data?.map((kioskItem) => (
-          <SuiObjectDisplay
-            object={kioskItem.data}
+          <KioskObjectDisplay
+            object={kioskItem}
             label={getLabel(kioskItem)}
             labelClasses={getLabelClasses()}
           >
@@ -88,7 +92,7 @@ export function KioskList({ kioskId }: { kioskId: string }) {
 	        </label>
 	      )}
             </div>
-          </SuiObjectDisplay>
+          </KioskObjectDisplay>
         ))}
       </InfiniteScrollArea>
     </>

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useCurrentAccount, } from "@mysten/dapp-kit";
-import { SuiObjectDisplay } from "@/components/SuiObjectDisplay";
 import { Button } from "@radix-ui/themes";
 import { InfiniteScrollArea } from "@/components/InfiniteScrollArea";
 import { CONSTANTS, QueryKey } from "@/constants";
@@ -11,6 +10,7 @@ import { SuiClient } from "@mysten/sui.js/client";
 import { KioskClient, Network, KioskItem } from "@mysten/kiosk";
 import { useQuery } from "@tanstack/react-query";
 import { useListItemMutation } from "@/mutations/kiosk";
+import { KioskObjectDisplay } from "./KioskContent";
 
 /**
  * A component that fetches all the objects owned by the connected wallet address
@@ -40,6 +40,10 @@ export function MyKioskItems() {
         options: {
           withKioskFields: true, // this flag also returns the `kiosk` object in the response, which includes the base setup
           withListingPrices: true, // This flag enables / disables the fetching of the listing prices.
+	  withObjects: true,
+	  objectOptions: {
+	    showContent: true,
+	  }
         },
       });
       return res;
@@ -55,8 +59,6 @@ export function MyKioskItems() {
     return "bg-green-50 rounded px-3 py-1 text-sm text-green-700";
   };
 
-  console.log(data)
-
   return (
     <InfiniteScrollArea
       loadMore={() => {}}
@@ -64,8 +66,8 @@ export function MyKioskItems() {
       loading={isLoading}
     >
       {data?.map((kioskItem) => (
-        <SuiObjectDisplay
-          object={kioskItem.data}
+        <KioskObjectDisplay
+          object={kioskItem}
           label={getLabel(kioskItem)}
           labelClasses={getLabelClasses()}
         >
@@ -95,7 +97,7 @@ export function MyKioskItems() {
 	      </label>
 	    )}
           </div>
-        </SuiObjectDisplay>
+        </KioskObjectDisplay>
       ))}
     </InfiniteScrollArea>
   );

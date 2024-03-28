@@ -13,12 +13,12 @@ const secondaryKioskId = CONSTANTS.secondaryKioskId;
 export function EscrowDashboard() {
   const tabs = [
     {
-      name: "Buy from Minter Kiosk",
+      name: "Primary Market Kiosk",
       component: () => <KioskList kioskId={primaryKioskId} />,
       tooltip: "Kiosk items from the Minter Kiosk.",
     },
     {
-      name: "Buy from Collector Kiosk",
+      name: "Secondary Market Kiosk",
       component: () => <KioskList kioskId={secondaryKioskId} />,
       tooltip: "Browse items from the Collector Kiosk.",
     },
