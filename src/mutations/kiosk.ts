@@ -27,7 +27,6 @@ export function usePurchaseItemMutation() {
     }) => {
       const { kioskOwnerCaps: userKioskCaps } =
         await kioskClient.getOwnedKiosks({ address: buyer });
-      console.log("User kiosk caps: ", userKioskCaps);
 
       const tx = new TransactionBlock();
       const kioskTx = new KioskTransaction({
@@ -81,7 +80,6 @@ export function useListItemMutation() {
     }) => {
       const { kioskOwnerCaps: userKioskCaps } =
         await kioskClient.getOwnedKiosks({ address: accountAddress });
-      console.log("User kiosk caps: ", userKioskCaps);
 
       const tx = new TransactionBlock();
       const kioskTx = new KioskTransaction({

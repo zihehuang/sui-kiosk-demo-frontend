@@ -32,7 +32,6 @@ export function MyKioskItems() {
     queryFn: async () => {
       const { kioskOwnerCaps: userKioskCaps } =
         await kioskClient.getOwnedKiosks({ address: account?.address! });
-      console.log("User kiosk caps: ", userKioskCaps);
       if (!userKioskCaps.length) return undefined;
 
       const kioskId = userKioskCaps[0].kioskId;
@@ -57,6 +56,8 @@ export function MyKioskItems() {
     return "bg-green-50 rounded px-3 py-1 text-sm text-green-700";
   };
 
+  console.log(data)
+
   return (
     <InfiniteScrollArea
       loadMore={() => {}}
@@ -75,6 +76,7 @@ export function MyKioskItems() {
                 <ExplorerLink id={kioskItem.objectId} isAddress={false} />
               </p>
             }
+	    {kioskItem.listing == undefined && (
             <Button
               className="ml-auto cursor-pointer"
               disabled={false}
@@ -87,11 +89,12 @@ export function MyKioskItems() {
             >
               List for Sale
             </Button>
-            <div className="min-w-[340px] w-full justify-self-start text-left">
-              {kioskItem?.data && (
-                <KioskContent kioskContent={{ ...kioskItem }} />
-              )}
-            </div>
+	    )}
+	    {kioskItem.listing && (
+	      <label className="ml-auto text-sm text-green-700">
+	        Listed
+	      </label>
+	    )}
           </div>
         </SuiObjectDisplay>
       ))}
