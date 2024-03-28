@@ -9,7 +9,6 @@ import { CONSTANTS, QueryKey } from "@/constants";
 import { ExplorerLink } from "../ExplorerLink";
 import { SuiClient } from "@mysten/sui.js/client";
 import { KioskClient, Network, KioskItem } from "@mysten/kiosk";
-import { KioskContent } from "./KioskContent";
 import { useQuery } from "@tanstack/react-query";
 import { useListItemMutation } from "@/mutations/kiosk";
 
