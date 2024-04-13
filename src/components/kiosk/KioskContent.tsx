@@ -24,16 +24,16 @@ export function KioskObjectDisplay({
   label?: string;
   labelClasses?: string;
 }) {
-  const tier3Url = "https://suifrens.com/images/bull-shark-about.svg"
-  const tier2Url = "https://testnet.suifrens.com/images/capy-about.svg"
 
+  const tier2Img = '/images/trading-pack-1.jpeg';
+  const tier3Img = '/images/trading-pack-2.jpeg';
 
   const listingPrice = object?.listing?.price;
   let fields: any
   if(object?.data?.content?.dataType === "moveObject") {
     fields = object?.data?.content?.fields
   }
-  const imgUrl = fields.tier === 3 ? tier3Url : tier2Url
+  const imgUrl = fields.tier === 3 ? tier2Img : tier3Img;
   return (
     <Card className="!p-0 sui-object-card">
       {label && (
